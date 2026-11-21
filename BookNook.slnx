@@ -1,2 +1,6 @@
 <Solution>
+  <Folder Name="/services/" />
+  <Folder Name="/services/IdentityService/">
+    <Project Path="services/IdentityService/BookNook.IdentityService.csproj" />
+  </Folder>
 </Solution>

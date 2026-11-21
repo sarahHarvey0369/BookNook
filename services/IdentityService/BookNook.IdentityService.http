@@ -1,0 +1,6 @@
+@BookNook.IdentityService_HostAddress = http://localhost:5080
+
+GET {{BookNook.IdentityService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

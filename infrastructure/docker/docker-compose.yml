@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: booknook-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: booknook_admin
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: booknook
+    ports:
+      - "5432:5432"
+    volumes:
+      - booknook-postgres-data:/var/lib/postgresql
+
+volumes:
+  booknook-postgres-data:
