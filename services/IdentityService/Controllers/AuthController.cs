@@ -9,10 +9,17 @@ namespace BookNook.IdentityService.Controllers;
 public class AuthController : ControllerBase
 {
     private readonly RegistrationService _registrationService;
+    private readonly LoginService _loginService;
+    private readonly JwtService _jwtService;
 
-    public AuthController(RegistrationService registrationService)
+    public AuthController(
+        RegistrationService registrationService,
+        LoginService loginService,
+        JwtService jwtService)
     {
         _registrationService = registrationService;
+        _loginService = loginService;
+        _jwtService = jwtService;
     }
 
     [HttpPost("register")]
@@ -33,5 +40,27 @@ public class AuthController : ControllerBase
         {
             message = "Account created successfully."
         });
+    }
+
+    [HttpPost("login")]
+    public async Task<IActionResult> Login(
+        [FromBody] LoginRequest request)
+    {
+        var user = await _loginService.LoginAsync(
+            request.Email,
+            request.Password
+        );
+
+        if (user == null)
+        {
+            return Unauthorized(new
+            {
+                message = "Invalid email or password."
+            });
+        }
+
+        var response = _jwtService.GenerateToken(user);
+
+        return Ok(response);
     }
 }

@@ -1,9 +1,42 @@
+@baseUrl = http://localhost:5080
+@token = PASTE_YOUR_JWT_HERE
+
+### Register - Create new account
 POST http://localhost:5080/api/auth/register
 Content-Type: application/json
 
 {
     "firstName": "Test",
     "lastName": "User",
-    "email": "testuser@exampler.com",
+    "email": "testuser@example.com",
     "password": "BookNook123!"
 }
+
+### Login - Valid Credentials
+POST http://localhost:5080/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "testuser@example.com",
+    "password": "BookNook123!"
+}
+
+### Login - Invalid Password
+POST http://localhost:5080/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "testuser@example.com",
+  "password": "WrongPassword123!"
+}
+
+### Protected Endpoint - No Token
+GET http://localhost:5080/api/testauth
+
+### Protected Endpoint - Invalid Token
+GET http://localhost:5080/api/testauth
+Authorization: Bearer invalid.token.value
+
+### Protected Endpoint - Valid Token
+GET {{baseUrl}}/api/testauth
+Authorization: Bearer {{token}}
