@@ -23,20 +23,15 @@ var jwtSettings = new JwtSettings
 {
     SecretKey = builder.Configuration["JwtSettings:SecretKey"]
         ?? throw new InvalidOperationException("JWT secret key is missing."),
-
     Issuer = builder.Configuration["JwtSettings:Issuer"]
         ?? throw new InvalidOperationException("JWT issuer is missing."),
-
     Audience = builder.Configuration["JwtSettings:Audience"]
         ?? throw new InvalidOperationException("JWT audience is missing."),
-
     ExpirationMinutes = int.Parse(
-        builder.Configuration["JwtSettings:ExpirationMinutes"]
-        ?? "60")
+        builder.Configuration["JwtSettings:ExpirationMinutes"] ?? "60")
 };
 
 builder.Services.AddSingleton(jwtSettings);
-
 
 // Configure JWT authentication.
 builder.Services
@@ -54,21 +49,16 @@ builder.Services
         {
             ValidateIssuer = true,
             ValidIssuer = jwtSettings.Issuer,
-
             ValidateAudience = true,
             ValidAudience = jwtSettings.Audience,
-
             ValidateLifetime = true, // Rejects expired tokens
-
             ValidateIssuerSigningKey = true,
             IssuerSigningKey = new SymmetricSecurityKey(
                 Encoding.UTF8.GetBytes(jwtSettings.SecretKey)
             ),
-
             ClockSkew = TimeSpan.Zero // Removes the default expiration grace period, a token becomes invalid as soon as it reaches its expiration time.
         };
     });
-
 
 // Configure PostgreSQL database connection.
 var connectionString = builder.Configuration

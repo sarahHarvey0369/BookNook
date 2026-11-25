@@ -9,4 +9,7 @@
   <Folder Name="/services/LibraryService/">
     <Project Path="services/LibraryService/BookNook.LibraryService.csproj" />
   </Folder>
+  <Folder Name="/services/ReadingStatisticsService/">
+    <Project Path="services/ReadingStatisticsService/BookNook.ReadingStatisticsService.csproj" />
+  </Folder>
 </Solution>

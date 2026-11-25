@@ -1,0 +1,6 @@
+@baseUrl = http://localhost:5180
+@token = PASTE_YOUR_JWT_HERE
+
+### Get reading statistics (requires authentication)
+GET {{baseUrl}}/api/statistics
+Authorization: Bearer {{token}}
